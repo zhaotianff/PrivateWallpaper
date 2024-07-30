@@ -5,9 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PrivateWallpaper"
         mc:Ignorable="d"
-        Title="MainWindow" WindowStartupLocation="Manual" WindowStyle="None" Background="Transparent" AllowsTransparency="True" Loaded="Window_Loaded" SizeToContent="WidthAndHeight"
+        Title="MainWindow" WindowStartupLocation="Manual" WindowStyle="None" Background="Transparent" AllowsTransparency="True" Loaded="Window_Loaded" Width="100" Height="55"
         Topmost="True">
-    <Grid Background="Transparent">
-        <ToggleButton Width="80" Height="40" Style="{StaticResource DefaultToggleButton}"></ToggleButton>
+    <Window.Resources>
+        <Storyboard x:Key="SwitchOnAnimation" Storyboard.TargetName="PART_Ellipse" Storyboard.TargetProperty="(Canvas.Left)">
+            <DoubleAnimation  From="0" To="44" Duration="0:0:0.7">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut"></CubicEase>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="SwitchOffAnimation" Storyboard.TargetName="PART_Ellipse" Storyboard.TargetProperty="(Canvas.Left)" >
+            <DoubleAnimation From="44" To="0" Duration="0:0:0.7">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut"></CubicEase>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Window.Resources>
+    <Grid Background="Transparent" MouseDown="Grid_MouseDown">
+        <Border x:Name="PART_Border" Width="80" Height="40" Background="White" CornerRadius="20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="5"></DropShadowEffect>
+            </Border.Effect>
+            
+        </Border>
+        <Canvas Width="80" Height="40" Name="canvas" Background="Transparent">
+            <Ellipse x:Name="PART_Ellipse" Width="26" Height="26" Margin="2,0" Canvas.Left="0" Canvas.Top="7" Fill="Wheat" MouseDown="PART_Ellipse_MouseDown">
+                <Ellipse.Effect>
+                    <DropShadowEffect BlurRadius="15" Opacity=".3"></DropShadowEffect>
+                </Ellipse.Effect>
+                <Ellipse.RenderTransform>
+                    <TranslateTransform />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+        </Canvas>
     </Grid>
 </Window>

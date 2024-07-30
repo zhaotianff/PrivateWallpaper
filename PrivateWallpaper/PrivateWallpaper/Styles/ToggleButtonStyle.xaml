@@ -15,7 +15,13 @@
                     <BulletDecorator Background="Transparent">
                         <BulletDecorator.Bullet>
                             <Border x:Name="PART_Border" Width="80" Height="40" Background="{TemplateBinding Background}" CornerRadius="20">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="5"></DropShadowEffect>
+                                </Border.Effect>
                                 <Ellipse x:Name="PART_Ellipse" Width="26" Height="26" Margin="2,0" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="Wheat">
+                                    <Ellipse.Effect>
+                                        <DropShadowEffect BlurRadius="15" Opacity=".3"></DropShadowEffect>
+                                    </Ellipse.Effect>
                                     <Ellipse.RenderTransform>
                                         <TranslateTransform />
                                     </Ellipse.RenderTransform>
@@ -41,7 +47,11 @@
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Background" Value="Pink" />
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="back.jpg" Stretch="UniformToFill"></ImageBrush>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
