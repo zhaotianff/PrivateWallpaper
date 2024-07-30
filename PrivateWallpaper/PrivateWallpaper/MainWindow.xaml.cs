@@ -28,7 +28,13 @@ namespace PrivateWallpaper
         {
             InitializeComponent();
             onAnimation = FindResource("SwitchOnAnimation") as Storyboard;
+            onAnimation.Completed += OnAnimation_Completed;
             offAnimation = FindResource("SwitchOffAnimation") as Storyboard;
+        }
+
+        private void OnAnimation_Completed(object sender, EventArgs e)
+        {
+            Wallpaper.Manager.ChangeWallpaper("");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
