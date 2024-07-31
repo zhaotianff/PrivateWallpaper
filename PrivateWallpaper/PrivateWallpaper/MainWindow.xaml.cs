@@ -68,6 +68,9 @@ namespace PrivateWallpaper
 
         private async void SwitchToPrivateWallpaper()
         {
+            if (string.IsNullOrEmpty(wallpaperConfig.PrivateFilePath))
+                return;
+
             onAnimation.Begin();
             await Task.Delay(300);
 
