@@ -37,6 +37,9 @@
   <PropertyGroup>
     <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>WindowsX.Shell.Startup</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -67,6 +70,7 @@
     <Compile Include="BlurWindow\Converters\BooleanVisibilityConverter.cs" />
     <Compile Include="BlurWindow\Helpers\OsVersionHelper.cs" />
     <Compile Include="BlurWindow\Helpers\WindowHelper.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="Themes\BlurWindowEvent.cs" />
     <Compile Include="Model\WallpaperConfig.cs" />
     <Compile Include="Model\WallpaperType.cs" />
