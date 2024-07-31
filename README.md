@@ -17,6 +17,6 @@ https://github.com/user-attachments/assets/71a0fa0a-e90f-47d5-b281-ba60938a57ce
 <p align="center">full version demo</p>
 
 
-# MIT License
-[LICENSE](LICENSE)
+# License
+[MIT](LICENSE)
 
