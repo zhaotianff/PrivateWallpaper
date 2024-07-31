@@ -17,8 +17,14 @@ namespace PrivateWallpaper.Wallpaper
 
         public static void ChangeWallpaper2(string path)
         {
-            IDesktopWallpaper desktopWallpaper = (IDesktopWallpaper)new DesktopWallpaper();
+            IDesktopWallpaper desktopWallpaper = (IDesktopWallpaper)new DesktopWallpaper(); //dispose?
             desktopWallpaper.SetWallpaper(null, path);
+        }
+
+        public static string GetCurrentWallpaper()
+        {
+            IDesktopWallpaper desktopWallpaper = (IDesktopWallpaper)new DesktopWallpaper();
+            return desktopWallpaper.GetWallpaper(null);
         }
     }
 }

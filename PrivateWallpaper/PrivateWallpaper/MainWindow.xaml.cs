@@ -41,13 +41,15 @@ namespace PrivateWallpaper
         {
             var privateWallpaperKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\PrivateWallpaper");
 
-            if(privateWallpaperKey == null)
+            if (privateWallpaperKey == null)
             {
                 privateWallpaperKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\PrivateWallpaper");
                 privateWallpaperKey.SetValue("IsPrivate", "0", Microsoft.Win32.RegistryValueKind.DWord);
                 privateWallpaperKey.SetValue("WallpaperType", "0", Microsoft.Win32.RegistryValueKind.DWord);
                 privateWallpaperKey.SetValue("PrivateFilePath", "", Microsoft.Win32.RegistryValueKind.String);
-                privateWallpaperKey.SetValue("PublicFilePath", "", Microsoft.Win32.RegistryValueKind.String);
+                var localWallpaperPath = Wallpaper.Manager.GetCurrentWallpaper();
+                wallpaperConfig.PublicFilePath = localWallpaperPath;
+                privateWallpaperKey.SetValue("PublicFilePath", localWallpaperPath, Microsoft.Win32.RegistryValueKind.String);
                 privateWallpaperKey.Dispose();
                 return;
             }
