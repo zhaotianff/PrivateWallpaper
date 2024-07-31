@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PrivateWallpaper"
         mc:Ignorable="d"
         Title="MainWindow" WindowStartupLocation="Manual" WindowStyle="None" Background="Transparent" AllowsTransparency="True" Loaded="Window_Loaded" Width="100" Height="55"
-        Topmost="True">
+        Topmost="True" Closing="Window_Closing">
     <Window.Resources>
         <Storyboard x:Key="SwitchOnAnimation" Storyboard.TargetName="PART_Ellipse" Storyboard.TargetProperty="(Canvas.Left)">
             <DoubleAnimation  From="0" To="44" Duration="0:0:0.7">

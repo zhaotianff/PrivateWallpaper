@@ -14,5 +14,11 @@ namespace PrivateWallpaper.Wallpaper
         {
             User32.SystemParametersInfo(User32.SPI_SETDESKWALLPAPER, 0, path, User32.SPIF_UPDATEINIFILE);
         }
+
+        public static void ChangeWallpaper2(string path)
+        {
+            IDesktopWallpaper desktopWallpaper = (IDesktopWallpaper)new DesktopWallpaper();
+            desktopWallpaper.SetWallpaper(null, path);
+        }
     }
 }
