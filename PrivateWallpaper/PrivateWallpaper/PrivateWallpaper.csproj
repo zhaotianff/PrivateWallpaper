@@ -34,9 +34,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,12 +63,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BlurWindow\BlurWindow.cs" />
+    <Compile Include="BlurWindow\Converters\BooleanVisibilityConverter.cs" />
+    <Compile Include="BlurWindow\Helpers\OsVersionHelper.cs" />
+    <Compile Include="BlurWindow\Helpers\WindowHelper.cs" />
+    <Compile Include="Themes\BlurWindowEvent.cs" />
     <Compile Include="Model\WallpaperConfig.cs" />
     <Compile Include="Model\WallpaperType.cs" />
     <Compile Include="PInvoke\IDesktopWallpaper.cs" />
     <Compile Include="PInvoke\User32.cs" />
-    <Compile Include="Views\Setting.xaml.cs">
-      <DependentUpon>Setting.xaml</DependentUpon>
+    <Compile Include="Util\ImageHelper.cs" />
+    <Compile Include="Util\NotifyIconHelper.cs" />
+    <Compile Include="Util\SingletonBase.cs" />
+    <Compile Include="Views\SettingWindow.xaml.cs">
+      <DependentUpon>SettingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wallpaper\Manager.cs" />
     <Page Include="MainWindow.xaml">
@@ -78,7 +91,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Setting.xaml">
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -101,6 +118,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="BlurWindow\README.md" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -112,6 +130,11 @@
   <ItemGroup>
     <Resource Include="Resources\back.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="logo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
