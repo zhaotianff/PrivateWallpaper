@@ -1,4 +1,5 @@
 ﻿using PrivateWallpaper.Model;
+using PrivateWallpaper.Util;
 using PrivateWallpaper.Views;
 using System;
 using System.Collections.Generic;
@@ -76,11 +77,8 @@ namespace PrivateWallpaper
             onAnimation.Begin();
             await Task.Delay(300);
 
-            BitmapImage bi = new BitmapImage();
-            bi.BeginInit();
-            bi.UriSource = new Uri("pack://application:,,,/Resources/back.jpg", UriKind.Absolute);
-            bi.EndInit();
-            this.PART_Border.Background = new ImageBrush() { ImageSource = bi, Stretch = Stretch.UniformToFill };
+            this.PART_Border.Background = new ImageBrush() { ImageSource = ImageHelper.GetBitmapImageFromDefaultResource("back.jpg"), Stretch = Stretch.UniformToFill };
+            this.PART_Ellipse.Fill = new ImageBrush() { ImageSource = ImageHelper.GetBitmapImageFromDefaultResource("smilewithpleasure.png"), Stretch = Stretch.UniformToFill };
 
             Wallpaper.Manager.ChangeWallpaper(wallpaperConfig.PrivateFilePath);
             wallpaperConfig.IsPrivate = true;
@@ -92,6 +90,7 @@ namespace PrivateWallpaper
             await Task.Delay(300);
 
             this.PART_Border.Background = Brushes.White;
+            this.PART_Ellipse.Fill = new ImageBrush() { ImageSource = ImageHelper.GetBitmapImageFromDefaultResource("smile.png"), Stretch = Stretch.UniformToFill };
 
             Wallpaper.Manager.ChangeWallpaper(wallpaperConfig.PublicFilePath);
             wallpaperConfig.IsPrivate = false;

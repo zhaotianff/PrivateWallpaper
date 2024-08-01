@@ -39,7 +39,10 @@
             
         </Border>
         <Canvas Width="80" Height="40" Name="canvas" Background="Transparent">
-            <Ellipse x:Name="PART_Ellipse" Width="26" Height="26" Margin="2,0" Canvas.Left="0" Canvas.Top="7" Fill="Wheat" MouseDown="PART_Ellipse_MouseDown">
+            <Ellipse x:Name="PART_Ellipse" Width="26" Height="26" Margin="2,0" Canvas.Left="0" Canvas.Top="7" MouseDown="PART_Ellipse_MouseDown">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="Resources/smile.png" Stretch="UniformToFill"></ImageBrush>
+                </Ellipse.Fill>
                 <Ellipse.Effect>
                     <DropShadowEffect BlurRadius="15" Opacity=".3"></DropShadowEffect>
                 </Ellipse.Effect>

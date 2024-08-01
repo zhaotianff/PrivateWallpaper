@@ -21,5 +21,14 @@ namespace PrivateWallpaper.Util
             bi.EndInit();
             return bi;
         }
+
+        public static BitmapImage GetBitmapImageFromDefaultResource(string fileName)
+        {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri($"pack://application:,,,/Resources/{fileName}", UriKind.Absolute);
+            bi.EndInit();
+            return bi;
+        }
     }
 }
