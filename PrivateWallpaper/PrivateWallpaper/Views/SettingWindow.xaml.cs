@@ -48,6 +48,11 @@ namespace PrivateWallpaper.Views
             {
                 this.img_wallpaper2.Source = ImageHelper.GetImageSource(wallpaperConfig.PrivateFilePath);
             }
+
+            if(wallpaperConfig.IsHideInFullscreen)
+            {
+                this.cbx_HideInFullScreen.IsChecked = true;
+            }
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e)
@@ -79,6 +84,16 @@ namespace PrivateWallpaper.Views
                 this.wallpaperConfig.PrivateFilePath = openFileDialog.FileName;
 
             }
+        }
+
+        private void cbx_HideInFullScreen_Checked(object sender, RoutedEventArgs e)
+        {
+            wallpaperConfig.IsHideInFullscreen = true;
+        }
+
+        private void cbx_HideInFullScreen_Unchecked(object sender, RoutedEventArgs e)
+        {
+            wallpaperConfig.IsHideInFullscreen = false;
         }
     }
 }

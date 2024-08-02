@@ -1,10 +1,13 @@
 ﻿using PrivateWallpaper.Model;
+using PrivateWallpaper.PInvoke;
 using PrivateWallpaper.Util;
 using PrivateWallpaper.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,6 +21,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WindowsX.Shell.Util;
+using static PrivateWallpaper.PInvoke.User32;
 
 namespace PrivateWallpaper
 {
@@ -28,6 +32,9 @@ namespace PrivateWallpaper
     {
         private Storyboard onAnimation;
         private Storyboard offAnimation;
+
+        private IntPtr g_eventhook;
+        private User32.Wineventproc Wineventproc;
 
         private WallpaperConfig wallpaperConfig = new WallpaperConfig();
 
@@ -47,6 +54,7 @@ namespace PrivateWallpaper
                 privateWallpaperKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\PrivateWallpaper");
                 privateWallpaperKey.SetValue("IsPrivate", "0", Microsoft.Win32.RegistryValueKind.DWord);
                 privateWallpaperKey.SetValue("WallpaperType", "0", Microsoft.Win32.RegistryValueKind.DWord);
+                privateWallpaperKey.SetValue("IsHideInFullscreen", "", Microsoft.Win32.RegistryValueKind.DWord);
                 privateWallpaperKey.SetValue("PrivateFilePath", "", Microsoft.Win32.RegistryValueKind.String);
                 var localWallpaperPath = Wallpaper.Manager.GetCurrentWallpaper();
                 wallpaperConfig.PublicFilePath = localWallpaperPath;
@@ -56,6 +64,7 @@ namespace PrivateWallpaper
             }
 
             wallpaperConfig.IsPrivate = privateWallpaperKey.GetValue("IsPrivate").ToString() == "1";
+            wallpaperConfig.IsHideInFullscreen = privateWallpaperKey.GetValue("IsHideInFullscreen").ToString() == "1";
             wallpaperConfig.WallpaperType = (WallpaperType)(privateWallpaperKey.GetValue("WallpaperType"));
             wallpaperConfig.PrivateFilePath = privateWallpaperKey.GetValue("PrivateFilePath").ToString();
             wallpaperConfig.PublicFilePath = privateWallpaperKey.GetValue("PublicFilePath").ToString();
@@ -123,6 +132,63 @@ namespace PrivateWallpaper
             }
 
             CreateNotifyIcon();
+            RefreshSetting();
+        }
+
+        private void RefreshSetting()
+        {
+            if(wallpaperConfig.IsHideInFullscreen)
+            {
+                CreateMaximiumEventHook();
+            }
+        }
+
+        private void CreateMaximiumEventHook()
+        {
+            if (g_eventhook != IntPtr.Zero)
+                return;
+
+            Wineventproc = new Wineventproc(EventProc);
+
+            g_eventhook = User32.SetWinEventHook(User32.EVENT_OBJECT_LOCATIONCHANGE, 
+                User32.EVENT_OBJECT_LOCATIONCHANGE, 
+                IntPtr.Zero,
+                Wineventproc, 0, 0, 
+                User32.WINEVENT_OUTOFCONTEXT | User32.WINEVENT_SKIPOWNPROCESS);
+        }
+
+        private void ReleaseMaximiumEventHook()
+        {
+            if (g_eventhook == IntPtr.Zero)
+                return;
+
+            User32.UnhookWinEvent(g_eventhook);
+        }
+
+        private void EventProc(IntPtr hWinEventHook, uint eventId, IntPtr hwnd, int idObject, int idChild, uint idEventThread, uint dwmsEventTime)
+        {
+            if (hwnd == IntPtr.Zero)
+                return;
+
+            if (User32.GetForegroundWindow() != hwnd)
+                return;
+
+            if (User32.EVENT_OBJECT_LOCATIONCHANGE == eventId)
+            {
+                WINDOWPLACEMENT wp = new WINDOWPLACEMENT();
+                wp.length = (uint)Marshal.SizeOf(wp);
+                if (User32.GetWindowPlacement(hwnd, ref wp))  //Not very accurate
+                {
+                    if (User32.SW_SHOWMAXIMIZED == wp.showCmd)
+                    {
+                        this.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        this.Visibility = Visibility.Visible;
+                    }
+                }
+            }
         }
 
         private void CreateNotifyIcon()
@@ -178,6 +244,7 @@ namespace PrivateWallpaper
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveConfig();
+            ReleaseMaximiumEventHook();
         }
 
         private void SaveConfig()
@@ -185,6 +252,7 @@ namespace PrivateWallpaper
             var privateWallpaperKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\PrivateWallpaper",true);
             privateWallpaperKey.SetValue("IsPrivate", wallpaperConfig.IsPrivate == true ? 1 : 0,Microsoft.Win32.RegistryValueKind.DWord);
             privateWallpaperKey.SetValue("WallpaperType", (int)wallpaperConfig.WallpaperType, Microsoft.Win32.RegistryValueKind.DWord);
+            privateWallpaperKey.SetValue("IsHideInFullscreen", wallpaperConfig.IsHideInFullscreen == true ? 1 : 0, Microsoft.Win32.RegistryValueKind.DWord);
             privateWallpaperKey.SetValue("PrivateFilePath", wallpaperConfig.PrivateFilePath, Microsoft.Win32.RegistryValueKind.String);
             privateWallpaperKey.SetValue("PublicFilePath", wallpaperConfig.PublicFilePath, Microsoft.Win32.RegistryValueKind.String);
             privateWallpaperKey.Dispose();
@@ -196,6 +264,7 @@ namespace PrivateWallpaper
             if(setting.ShowDialog() == true)
             {
                 RefreshWallpaper();
+                RefreshSetting();
             }
         }
     }

@@ -15,5 +15,7 @@ namespace PrivateWallpaper.Model
         public string PrivateFilePath { get; set; }
 
         public bool IsPrivate { get; set; } = false;
+
+        public bool IsHideInFullscreen { get; set; } = true;
     }
 }
