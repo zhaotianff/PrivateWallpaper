@@ -8,12 +8,13 @@ namespace WindowsX.Shell
     class Startup
     {
         private static readonly string MutexName = "MMutex";
+        private static System.Threading.Mutex mutex;
 
         [STAThread]
         static void Main(string[] args)
         {
             bool createdNew;
-            System.Threading.Mutex mutex = new System.Threading.Mutex(true, MutexName, out createdNew);
+            mutex = new System.Threading.Mutex(true, MutexName, out createdNew);
             if (createdNew)
             {
                 PrivateWallpaper.App app = new PrivateWallpaper.App();
