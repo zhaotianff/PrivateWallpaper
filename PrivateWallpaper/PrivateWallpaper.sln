@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrivateWallpaper", "PrivateWallpaper\PrivateWallpaper.csproj", "{2C64BCFA-9ECA-483A-A1ED-2015F02B420F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrivateWallpaper.AdminTask", "PrivateWallpaper.AdminTask\PrivateWallpaper.AdminTask.csproj", "{1E309A47-CF3B-4DE5-B466-889A1A2CFF9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2C64BCFA-9ECA-483A-A1ED-2015F02B420F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C64BCFA-9ECA-483A-A1ED-2015F02B420F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C64BCFA-9ECA-483A-A1ED-2015F02B420F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E309A47-CF3B-4DE5-B466-889A1A2CFF9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E309A47-CF3B-4DE5-B466-889A1A2CFF9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E309A47-CF3B-4DE5-B466-889A1A2CFF9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E309A47-CF3B-4DE5-B466-889A1A2CFF9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

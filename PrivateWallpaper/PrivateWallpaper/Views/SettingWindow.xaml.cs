@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32;
 using PrivateWallpaper.Model;
+using PrivateWallpaper.PInvoke;
 using PrivateWallpaper.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,13 +25,25 @@ namespace PrivateWallpaper.Views
     public partial class SettingWindow : TianXiaTech.BlurWindow
     {
         private WallpaperConfig wallpaperConfig;
+        private static readonly string adminTaskProgramFilePath = AppDomain.CurrentDomain.BaseDirectory + "PrivateWallpaper.AdminTask.exe";
 
         public SettingWindow(WallpaperConfig wallpaperConfig)
         {
             this.wallpaperConfig = wallpaperConfig;
 
             InitializeComponent();
+            InitializeUI();
             InitializeSetting();
+        }
+
+        private void InitializeUI()
+        {
+            //TODO
+
+            var img = this.btn_InstallStartup.FindName("img_Icon") as Image;
+            img.Source = UACIcon.GetUACIcon();
+            var uninstallImg = this.btn_UnInstallStartup.FindName("img_UninstallIcon") as Image;
+            uninstallImg.Source = UACIcon.GetUACIcon();
         }
 
         private void InitializeSetting()
@@ -95,5 +109,36 @@ namespace PrivateWallpaper.Views
         {
             wallpaperConfig.IsHideInFullscreen = false;
         }
+
+        private void btn_InstallStartup_Click(object sender, RoutedEventArgs e)
+        {
+            if (System.IO.File.Exists(adminTaskProgramFilePath) == false)
+                return;
+
+            try
+            {
+                System.Diagnostics.Process.Start(adminTaskProgramFilePath, Assembly.GetExecutingAssembly().Location + " " + "install");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btn_UnInstallStartup_Click(object sender, RoutedEventArgs e)
+        {
+            if (System.IO.File.Exists(adminTaskProgramFilePath) == false)
+                return;
+
+            try
+            {
+                System.Diagnostics.Process.Start(adminTaskProgramFilePath, Assembly.GetExecutingAssembly().Location + " " + "uninstall");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        
     }
 }

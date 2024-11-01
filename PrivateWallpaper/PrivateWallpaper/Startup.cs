@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PrivateWallpaper;
+using PrivateWallpaper.Views;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,9 +19,17 @@ namespace WindowsX.Shell
             mutex = new System.Threading.Mutex(true, MutexName, out createdNew);
             if (createdNew)
             {
-                PrivateWallpaper.App app = new PrivateWallpaper.App();
-                app.InitializeComponent();
-                app.Run();
+                Application application = new Application();
+
+                if (args.Length > 0 && args[0].ToUpper() == "SELECTOR")
+                {
+                    application.Run(new WallpaperModeSelector());
+                }
+                else
+                {
+                    application.Run(new MainWindow());
+                }
+
             }
             else
             {

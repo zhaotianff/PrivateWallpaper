@@ -70,6 +70,8 @@
     <Compile Include="BlurWindow\Converters\BooleanVisibilityConverter.cs" />
     <Compile Include="BlurWindow\Helpers\OsVersionHelper.cs" />
     <Compile Include="BlurWindow\Helpers\WindowHelper.cs" />
+    <Compile Include="PInvoke\SHSTOCKICONID.cs" />
+    <Compile Include="PInvoke\UACIcon.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Themes\BlurWindowEvent.cs" />
     <Compile Include="Model\WallpaperConfig.cs" />
@@ -81,6 +83,9 @@
     <Compile Include="Util\SingletonBase.cs" />
     <Compile Include="Views\SettingWindow.xaml.cs">
       <DependentUpon>SettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WallpaperModeSelector.xaml.cs">
+      <DependentUpon>WallpaperModeSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wallpaper\Manager.cs" />
     <Page Include="MainWindow.xaml">
@@ -100,6 +105,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WallpaperModeSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

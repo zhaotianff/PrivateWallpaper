@@ -59,7 +59,33 @@
             </TabItem>
             <TabItem Header="系统配置">
                 <StackPanel>
-                    <CheckBox Content="应用全屏时自动隐藏" Name="cbx_HideInFullScreen" Checked="cbx_HideInFullScreen_Checked" Unchecked="cbx_HideInFullScreen_Unchecked"></CheckBox>
+                    <CheckBox Content="应用全屏时自动隐藏" Name="cbx_HideInFullScreen" Checked="cbx_HideInFullScreen_Checked" Unchecked="cbx_HideInFullScreen_Unchecked" Margin="0,5,0,0"></CheckBox>
+                    <Button  Margin="0,10,0,0" Name="btn_InstallStartup" Click="btn_InstallStartup_Click">
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="img_Icon" Margin="0,0,2,0" Width="15"></Image>
+                                <Label Grid.Column="1" Content="安装开机启动"></Label>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                    <Button  Margin="0,10,0,0" Name="btn_UnInstallStartup" Click="btn_UnInstallStartup_Click">
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="img_UninstallIcon" Margin="0,0,2,0" Width="15"></Image>
+                                <Label Grid.Column="1" Content="移除开机启动"></Label>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
                 </StackPanel>
             </TabItem>
         </TabControl>
