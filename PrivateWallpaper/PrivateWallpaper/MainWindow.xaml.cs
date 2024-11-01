@@ -54,7 +54,7 @@ namespace PrivateWallpaper
                 privateWallpaperKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\PrivateWallpaper");
                 privateWallpaperKey.SetValue("IsPrivate", "0", Microsoft.Win32.RegistryValueKind.DWord);
                 privateWallpaperKey.SetValue("WallpaperType", "0", Microsoft.Win32.RegistryValueKind.DWord);
-                privateWallpaperKey.SetValue("IsHideInFullscreen", "", Microsoft.Win32.RegistryValueKind.DWord);
+                privateWallpaperKey.SetValue("IsHideInFullscreen", "0", Microsoft.Win32.RegistryValueKind.DWord);
                 privateWallpaperKey.SetValue("PrivateFilePath", "", Microsoft.Win32.RegistryValueKind.String);
                 var localWallpaperPath = Wallpaper.Manager.GetCurrentWallpaper();
                 wallpaperConfig.PublicFilePath = localWallpaperPath;
