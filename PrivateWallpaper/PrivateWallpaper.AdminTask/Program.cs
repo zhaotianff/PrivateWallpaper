@@ -47,7 +47,7 @@ namespace PrivateWallpaper.AdminTask
 
                 if (winLogonKey != null)
                 {
-                    winLogonKey.SetValue("Shell", path, Microsoft.Win32.RegistryValueKind.String);
+                    winLogonKey.SetValue("Shell", path + " selector", Microsoft.Win32.RegistryValueKind.String);
                     winLogonKey.Dispose();
                 }
             }

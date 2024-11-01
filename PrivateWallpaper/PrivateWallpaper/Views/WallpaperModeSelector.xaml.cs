@@ -48,7 +48,10 @@ namespace PrivateWallpaper.Views
         {
             var systemRoot = Environment.GetFolderPath(Environment.SpecialFolder.System);
             var explorer = System.IO.Path.Combine(systemRoot, "explorer.exe");
-            System.Diagnostics.Process.Start(explorer);
+            System.Diagnostics.ProcessStartInfo psInfo = new System.Diagnostics.ProcessStartInfo();
+            psInfo.FileName = explorer;
+            psInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+            System.Diagnostics.Process.Start(psInfo);
         }
 
         private void RunPrivateWallpaper(bool isPrivateWallpaper)
