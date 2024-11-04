@@ -40,7 +40,7 @@
                             <Image Stretch="Uniform" Name="img_wallpaper1"></Image>
                         </GroupBox>
 
-                        <Button Content="浏览" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BtnImg1Browser_Click"></Button>
+                        <Button Content="浏览" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BtnImg1Browser_Click" Style="{StaticResource GlobalButtonStyle}"></Button>
                     </Grid>
 
                     <Grid Grid.Column="2">
@@ -53,14 +53,14 @@
                             <Image Stretch="Uniform" Name="img_wallpaper2"></Image>
                         </GroupBox>
 
-                        <Button Content="浏览" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BtnImg2Browser_Click"></Button>
+                        <Button Content="浏览" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BtnImg2Browser_Click" Style="{StaticResource GlobalButtonStyle}"></Button>
                     </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="系统配置">
                 <StackPanel>
                     <CheckBox Content="应用全屏时自动隐藏" Name="cbx_HideInFullScreen" Checked="cbx_HideInFullScreen_Checked" Unchecked="cbx_HideInFullScreen_Unchecked" Margin="0,5,0,0"></CheckBox>
-                    <Button  Margin="0,10,0,0" Name="btn_InstallStartup" Click="btn_InstallStartup_Click">
+                    <Button  Margin="0,10,0,0" Name="btn_InstallStartup" Click="btn_InstallStartup_Click" Style="{StaticResource GlobalButtonStyle}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -73,7 +73,7 @@
                             </Grid>
                         </Button.Content>
                     </Button>
-                    <Button  Margin="0,10,0,0" Name="btn_UnInstallStartup" Click="btn_UnInstallStartup_Click">
+                    <Button  Margin="0,10,0,0" Name="btn_UnInstallStartup" Click="btn_UnInstallStartup_Click" Style="{StaticResource GlobalButtonStyle}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -90,6 +90,6 @@
             </TabItem>
         </TabControl>
 
-        <Button Grid.Row="1" Content="确定" VerticalAlignment="Center" HorizontalAlignment="Right" Width="88" Height="24" Click="BtnOk_Click"></Button>
+        <Button Grid.Row="1" Content="确定" VerticalAlignment="Center" HorizontalAlignment="Right" Width="88" Height="24" Click="BtnOk_Click" Style="{StaticResource GlobalButtonStyle}"></Button>
     </Grid>
 </tianxia:BlurWindow>

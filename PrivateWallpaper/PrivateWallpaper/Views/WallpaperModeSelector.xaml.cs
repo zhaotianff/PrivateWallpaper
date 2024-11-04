@@ -25,23 +25,13 @@ namespace PrivateWallpaper.Views
         public WallpaperModeSelector()
         {
             InitializeComponent();
+
+            pwd_PublicMode.Focus();
         }
 
         private void BlurWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = cancelCloseFlag;
-        }
-
-        private void btn_PrivateWallpaperMode_Click(object sender, RoutedEventArgs e)
-        {
-            RunExplorer();
-            RunPrivateWallpaper(true);
-        }
-
-        private void btn_PublicWallpaperMode_Click(object sender, RoutedEventArgs e)
-        {
-            RunExplorer();
-            RunPrivateWallpaper(false);
         }
 
         private void RunExplorer()
@@ -69,6 +59,30 @@ namespace PrivateWallpaper.Views
 
             this.cancelCloseFlag = false;
             this.Close();
+        }
+
+        private void btn_Start_Click(object sender, RoutedEventArgs e)
+        {
+            if(pwd_PublicMode.Password == "1")
+            {
+                RunExplorer();
+                RunPrivateWallpaper(false);
+            }
+
+            if(pwd_PrivateMode.Password == "2")
+            {
+                RunExplorer();
+                RunPrivateWallpaper(true);
+            }
+
+            if(string.IsNullOrEmpty(pwd_PrivateMode.Password) && string.IsNullOrEmpty(pwd_PublicMode.Password))
+            {
+                MessageBox.Show("请输入对应模式的密码");
+            }
+            else
+            {
+                MessageBox.Show("密码错误，请重新输入");
+            }
         }
     }
 }

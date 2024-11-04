@@ -5,14 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tianxia="clr-namespace:TianXiaTech"
         mc:Ignorable="d"
-        Title="请选择系统模式" Icon="../logo.jpg" Height="200" Width="300" WindowStartupLocation="CenterScreen" ControlBoxVisibility="Collapsed" Closing="BlurWindow_Closing">
+        Title="请选择系统模式" Icon="../logo.jpg" Height="250" Width="500" WindowStartupLocation="CenterScreen" ControlBoxVisibility="Collapsed" Closing="BlurWindow_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Button Content="休闲模式" Width="130" Height="130" FontSize="15" Name="btn_PrivateWallpaperMode" Click="btn_PrivateWallpaperMode_Click"></Button>
-        <Button Content="工作模式" Width="130" Height="130" FontSize="15" Grid.Column="1" Name="btn_PublicWallpaperMode" Click="btn_PublicWallpaperMode_Click"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Border BorderThickness="1" BorderBrush="{StaticResource AccentBaseColor}" Margin="20" CornerRadius="15">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Content="休闲模式" HorizontalAlignment="Center" VerticalAlignment="Bottom" ></Label>
+                <PasswordBox Grid.Row="1" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" Name="pwd_PublicMode" Height="30" Style="{StaticResource PasswordBoxStyle}"></PasswordBox>
+            </Grid>
+        </Border>
+
+        <Border BorderThickness="1" BorderBrush="{StaticResource AccentBaseColor}" Margin="20" CornerRadius="15" Grid.Column="1">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Content="工作模式" HorizontalAlignment="Center" VerticalAlignment="Bottom" ></Label>
+                <PasswordBox Grid.Row="1" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center" Name="pwd_PrivateMode" Background="Transparent" Height="30" Style="{StaticResource PasswordBoxStyle}"></PasswordBox>
+            </Grid>
+        </Border>
+
+        <Button Content="启动" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Width="88" Height="28" Style="{StaticResource GlobalButtonStyle}" Name="btn_Start" Click="btn_Start_Click"></Button>
     </Grid>
 </tianxia:BlurWindow>
