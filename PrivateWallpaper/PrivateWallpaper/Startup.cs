@@ -9,7 +9,7 @@ namespace WindowsX.Shell
 {
     class Startup
     {
-        private static readonly string MutexName = "MMutex";
+        private static readonly string MutexName = "PrivateWallpaperMutex";
         private static System.Threading.Mutex mutex;
 
         [STAThread]

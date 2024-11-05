@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,6 +22,9 @@ namespace PrivateWallpaper.Views
     public partial class WallpaperModeSelector : TianXiaTech.BlurWindow
     {
         private bool cancelCloseFlag = true;
+        private static readonly string ByPassUACName = "ByPassUAC.exe";
+        private static readonly string AdminTaskName = "PrivateWallpaper.AdminTask.exe";
+        private static readonly string PrivateWallpaperName = "PrivateWallpaper.exe";
 
         public WallpaperModeSelector()
         {
@@ -36,12 +40,19 @@ namespace PrivateWallpaper.Views
 
         private void RunExplorer()
         {
-            var systemRoot = Environment.GetFolderPath(Environment.SpecialFolder.System);
-            var explorer = System.IO.Path.Combine(systemRoot, "explorer.exe");
-            System.Diagnostics.ProcessStartInfo psInfo = new System.Diagnostics.ProcessStartInfo();
-            psInfo.FileName = explorer;
-            psInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-            System.Diagnostics.Process.Start(psInfo);
+            var programPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            var byPassUACPath = System.IO.Path.Combine(programPath, ByPassUACName);
+            var adminTaskPath = System.IO.Path.Combine(programPath, AdminTaskName);
+            var privateWallpaperPath = System.IO.Path.Combine(programPath, PrivateWallpaperName);
+
+            if (System.IO.File.Exists(byPassUACPath) == false || System.IO.File.Exists(adminTaskPath) == false)
+            {
+                return;
+            }
+
+            var mode = "userinit";
+            System.Diagnostics.Process.Start(byPassUACPath, $"{adminTaskPath} {privateWallpaperPath} {mode}");
         }
 
         private void RunPrivateWallpaper(bool isPrivateWallpaper)
@@ -56,32 +67,43 @@ namespace PrivateWallpaper.Views
 
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
-
-            this.cancelCloseFlag = false;
-            this.Close();
         }
 
         private void btn_Start_Click(object sender, RoutedEventArgs e)
         {
-            if(pwd_PublicMode.Password == "1")
+            if (string.IsNullOrEmpty(pwd_PrivateMode.Password) && string.IsNullOrEmpty(pwd_PublicMode.Password))
             {
-                RunExplorer();
+                MessageBox.Show("请输入对应模式的密码");
+            }
+
+            if (!string.IsNullOrEmpty(pwd_PublicMode.Password) && pwd_PublicMode.Password != "1")
+            {
+                MessageBox.Show("密码输入错误，请重新输入");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(pwd_PrivateMode.Password) && pwd_PrivateMode.Password != "2")
+            {
+                MessageBox.Show("密码输入错误，请重新输入");
+                return;
+            }
+
+            if (pwd_PublicMode.Password == "1")
+            {
                 RunPrivateWallpaper(false);
+                RunExplorer();
+
+                this.cancelCloseFlag = false;
+                this.Close();
             }
 
             if(pwd_PrivateMode.Password == "2")
             {
-                RunExplorer();
                 RunPrivateWallpaper(true);
-            }
+                RunExplorer();
 
-            if(string.IsNullOrEmpty(pwd_PrivateMode.Password) && string.IsNullOrEmpty(pwd_PublicMode.Password))
-            {
-                MessageBox.Show("请输入对应模式的密码");
-            }
-            else
-            {
-                MessageBox.Show("密码错误，请重新输入");
+                this.cancelCloseFlag = false;
+                this.Close();
             }
         }
     }

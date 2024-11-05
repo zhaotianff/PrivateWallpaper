@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrivateWallpaper.AdminTask
 {
     internal class Program
     {
+        /// <summary>
+        /// main(must x64)
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             if (args.Length != 2)
@@ -54,12 +59,11 @@ namespace PrivateWallpaper.AdminTask
                 {
                     var shellPath = winLogonKey.GetValue("Shell");
                     winLogonKey.SetValue("Shell", "explorer.exe", Microsoft.Win32.RegistryValueKind.String);
-
                     var userInitPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows) + "\\system32\\userinit.exe";
+                    Thread.Sleep(100);
                     System.Diagnostics.Process.Start(userInitPath);
-
+                    Thread.Sleep(100);
                     winLogonKey.SetValue("Shell", shellPath, Microsoft.Win32.RegistryValueKind.String);
-
                     winLogonKey.Dispose();
                 }
             }

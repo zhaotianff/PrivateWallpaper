@@ -25,7 +25,9 @@ namespace PrivateWallpaper.Views
     public partial class SettingWindow : TianXiaTech.BlurWindow
     {
         private WallpaperConfig wallpaperConfig;
-        private static readonly string adminTaskProgramFilePath = AppDomain.CurrentDomain.BaseDirectory + "PrivateWallpaper.AdminTask.exe";
+        private static readonly string AdminTaskName = "PrivateWallpaper.AdminTask.exe";
+        private static readonly string ByPassUACName = "ByPassUAC.exe";
+        private static readonly string PrivateWallpaperName = "PrivateWallpaper.exe";
 
         public SettingWindow(WallpaperConfig wallpaperConfig)
         {
@@ -112,40 +114,44 @@ namespace PrivateWallpaper.Views
 
         private void btn_InstallStartup_Click(object sender, RoutedEventArgs e)
         {
-            if (System.IO.File.Exists(adminTaskProgramFilePath) == false)
+            InstallOrUninstallStartup(true);
+        }
+
+        private void btn_UnInstallStartup_Click(object sender, RoutedEventArgs e)
+        {
+            InstallOrUninstallStartup(false);
+        }
+
+        private void InstallOrUninstallStartup(bool isInstall)
+        {
+            var programDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var byPassUACPath = System.IO.Path.Combine(programDir, ByPassUACName);
+            var adminTaskPath = System.IO.Path.Combine(programDir, AdminTaskName);
+            var privateWallpaperPath = System.IO.Path.Combine(programDir, PrivateWallpaperName);
+
+            if (System.IO.File.Exists(byPassUACPath) == false || System.IO.File.Exists(adminTaskPath) == false)
                 return;
 
             try
             {
-                //System.Diagnostics.Process.Start(adminTaskProgramFilePath, Assembly.GetExecutingAssembly().Location + " " + "install");
+                var mode = "install";
 
-                var rundll32 = "C:\\Windows\\System32\\rundll32.exe";
-                var szDllPath = Environment.CurrentDirectory + "\\BypassUAC_DLL.dll";//替换为编译的dll路径
-                System.Diagnostics.Process.Start(rundll32, szDllPath + " BypassUAC");  
+                if(isInstall == false)
+                {
+                    mode = "uninstall";
+                }
+
+                System.Diagnostics.Process.Start(byPassUACPath, $"{adminTaskPath} {privateWallpaperPath} {mode}");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
 
-        private void btn_UnInstallStartup_Click(object sender, RoutedEventArgs e)
+        private bool GetStartupState()
         {
-            if (System.IO.File.Exists(adminTaskProgramFilePath) == false)
-                return;
-
-            try
-            {
-                //System.Diagnostics.Process.Start(adminTaskProgramFilePath, Assembly.GetExecutingAssembly().Location + " " + "uninstall");
-
-                var rundll32 = "C:\\Windows\\System32\\rundll32.exe";
-                var szDllPath = Environment.CurrentDirectory + "\\BypassUAC_DLL.dll";//替换为编译的dll路径
-                System.Diagnostics.Process.Start(rundll32, szDllPath + " BypassUAC1");
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            return true;
         }
         
     }
