@@ -36,6 +36,7 @@ namespace PrivateWallpaper.Views
             InitializeComponent();
             InitializeUI();
             InitializeSetting();
+            LoadStatrupState();
         }
 
         private void InitializeUI()
@@ -70,6 +71,39 @@ namespace PrivateWallpaper.Views
                 this.cbx_HideInFullScreen.IsChecked = true;
             }
         }
+
+        private void LoadStatrupState()
+        {
+            var programDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var byPassUACPath = System.IO.Path.Combine(programDir, ByPassUACName);
+            var adminTaskPath = System.IO.Path.Combine(programDir, AdminTaskName);
+            var privateWallpaperPath = System.IO.Path.Combine(programDir, PrivateWallpaperName);
+
+            if (System.IO.File.Exists(byPassUACPath) == false || System.IO.File.Exists(adminTaskPath) == false)
+                return;
+
+            try
+            {
+                var mode = "read";
+                var output = ProcessHelper.ExecuteAndGetOutput(byPassUACPath, $"{adminTaskPath} {privateWallpaperPath} {mode}");
+
+                if(output.Trim() == "少年易老学难成")
+                {
+                    btn_InstallStartup.Visibility = Visibility.Visible;
+                    btn_UnInstallStartup.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    btn_InstallStartup.Visibility = Visibility.Collapsed;
+                    btn_UnInstallStartup.Visibility = Visibility.Visible;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
 
         private void BtnOk_Click(object sender, RoutedEventArgs e)
         {
@@ -147,11 +181,6 @@ namespace PrivateWallpaper.Views
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private bool GetStartupState()
-        {
-            return true;
         }
         
     }

@@ -67,6 +67,7 @@ namespace PrivateWallpaper.Views
 
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
+            mainWindow.WindowState = WindowState.Minimized;
         }
 
         private void btn_Start_Click(object sender, RoutedEventArgs e)

@@ -80,6 +80,7 @@
     <Compile Include="PInvoke\User32.cs" />
     <Compile Include="Util\ImageHelper.cs" />
     <Compile Include="Util\NotifyIconHelper.cs" />
+    <Compile Include="Util\ProcessHelper.cs" />
     <Compile Include="Util\SingletonBase.cs" />
     <Compile Include="Views\SettingWindow.xaml.cs">
       <DependentUpon>SettingWindow.xaml</DependentUpon>

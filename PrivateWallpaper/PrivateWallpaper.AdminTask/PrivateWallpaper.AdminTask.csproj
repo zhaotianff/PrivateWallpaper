@@ -68,6 +68,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "PrivateWallpaper.AdminTask.exe" "../../../PrivateWallpaper/bin/Release"</PostBuildEvent>
+    <PostBuildEvent>copy "PrivateWallpaper.AdminTask.exe" "../../../PrivateWallpaper/bin/Debug"
+copy "PrivateWallpaper.AdminTask.exe" "../../../PrivateWallpaper/bin/Release"</PostBuildEvent>
   </PropertyGroup>
 </Project>
