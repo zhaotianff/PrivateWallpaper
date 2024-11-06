@@ -10,10 +10,12 @@ Private wallpaper switcher
 ## preview
 
 https://github.com/user-attachments/assets/9563f77b-7f08-4b54-8e67-143d6c7fad4e
+<br/>
 
 ## startup (mode1)
 
 https://github.com/user-attachments/assets/b82599bf-58ba-4c40-90e1-075c5eba305c
+<br/>
 
 ## startup (mode2)
 
