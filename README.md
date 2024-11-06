@@ -7,16 +7,9 @@ Private wallpaper switcher
 * low system resource usage
 <br/>
 
-## quick preview
-<p align="center">
-	<img align="center" src="img/demo.gif"></img>
-</p>
+## preview
 
-<br/>
-
-## full version demo
-
-https://github.com/user-attachments/assets/71a0fa0a-e90f-47d5-b281-ba60938a57ce
+https://github.com/user-attachments/assets/9563f77b-7f08-4b54-8e67-143d6c7fad4e
 
 ## startup (mode1)
 
