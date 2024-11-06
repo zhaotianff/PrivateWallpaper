@@ -72,7 +72,7 @@ namespace PrivateWallpaper.Views
             }
         }
 
-        private void LoadStatrupState()
+        private async void LoadStatrupState()
         {
             var programDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var byPassUACPath = System.IO.Path.Combine(programDir, ByPassUACName);
@@ -82,26 +82,37 @@ namespace PrivateWallpaper.Views
             if (System.IO.File.Exists(byPassUACPath) == false || System.IO.File.Exists(adminTaskPath) == false)
                 return;
 
-            try
-            {
-                var mode = "read";
-                var output = ProcessHelper.ExecuteAndGetOutput(byPassUACPath, $"{adminTaskPath} {privateWallpaperPath} {mode}");
+            var mode = "read";
 
-                if(output.Trim() == "少年易老学难成")
-                {
-                    btn_InstallStartup.Visibility = Visibility.Visible;
-                    btn_UnInstallStartup.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    btn_InstallStartup.Visibility = Visibility.Collapsed;
-                    btn_UnInstallStartup.Visibility = Visibility.Visible;
-                }
-            }
-            catch (Exception ex)
+            await Task.Run(() =>
             {
-                MessageBox.Show(ex.Message);
-            }
+                var output = ProcessHelper.ExecuteAndGetOutput(byPassUACPath, $"{adminTaskPath} {privateWallpaperPath} {mode}");
+                try
+                {
+                    if (output.Trim() == "少年易老学难成")
+                    {
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            btn_InstallStartup.Visibility = Visibility.Visible;
+                            btn_UnInstallStartup.Visibility = Visibility.Collapsed;
+                        });
+
+                    }
+                    else
+                    {
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            btn_InstallStartup.Visibility = Visibility.Collapsed;
+                            btn_UnInstallStartup.Visibility = Visibility.Visible;
+                        });
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            });
         }
 
 
@@ -156,7 +167,7 @@ namespace PrivateWallpaper.Views
             InstallOrUninstallStartup(false);
         }
 
-        private void InstallOrUninstallStartup(bool isInstall)
+        private async void InstallOrUninstallStartup(bool isInstall)
         {
             var programDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var byPassUACPath = System.IO.Path.Combine(programDir, ByPassUACName);
@@ -175,7 +186,11 @@ namespace PrivateWallpaper.Views
                     mode = "uninstall";
                 }
 
-                System.Diagnostics.Process.Start(byPassUACPath, $"{adminTaskPath} {privateWallpaperPath} {mode}");
+                ProcessHelper.Execute(byPassUACPath, $"{adminTaskPath} {privateWallpaperPath} {mode}");
+
+                await Task.Delay(500);
+
+                LoadStatrupState();
             }
             catch (Exception ex)
             {

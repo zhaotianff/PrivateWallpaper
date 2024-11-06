@@ -1,4 +1,5 @@
 ﻿using PrivateWallpaper.Model;
+using PrivateWallpaper.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace PrivateWallpaper.Views
             }
 
             var mode = "userinit";
-            System.Diagnostics.Process.Start(byPassUACPath, $"{adminTaskPath} {privateWallpaperPath} {mode}");
+            ProcessHelper.Execute(byPassUACPath, $"{adminTaskPath} {privateWallpaperPath} {mode}");
         }
 
         private void RunPrivateWallpaper(bool isPrivateWallpaper)
@@ -67,7 +68,6 @@ namespace PrivateWallpaper.Views
 
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
-            mainWindow.WindowState = WindowState.Minimized;
         }
 
         private void btn_Start_Click(object sender, RoutedEventArgs e)
