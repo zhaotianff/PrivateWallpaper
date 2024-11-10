@@ -4,7 +4,7 @@
     <SolidColorBrush x:Key="AccentBaseColor" Color="#169fe6"></SolidColorBrush>
     
     <Style x:Key="GlobalButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -23,13 +23,13 @@
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource AccentBaseColor}"/>
                             <Setter Property="Opacity" TargetName="border" Value=".7"/>
                             <Setter Property="BorderBrush" TargetName="border" Value="Silver"/>
-                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Foreground" Value="Black"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource AccentBaseColor}"/>
                             <Setter Property="BorderBrush" TargetName="border" Value="Silver"/>
                             <Setter Property="Opacity" Value=".8"/>
-                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Foreground" Value="Silver"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="Black"/>

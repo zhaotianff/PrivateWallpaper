@@ -20,7 +20,7 @@ namespace PrivateWallpaper.Views
     /// <summary>
     /// WallpaperModeSelector.xaml 的交互逻辑
     /// </summary>
-    public partial class WallpaperModeSelector : TianXiaTech.BlurWindow
+    public partial class WallpaperModeSelector : Window
     {
         private bool cancelCloseFlag = true;
         private static readonly string ByPassUACName = "ByPassUAC.exe";
@@ -106,6 +106,18 @@ namespace PrivateWallpaper.Views
                 this.cancelCloseFlag = false;
                 this.Close();
             }
+        }
+
+        private void BlurWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            media.Play();
+            media.MediaEnded += Media_MediaEnded;
+        }
+
+        private void Media_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            media.Stop();
+            media.Play();
         }
     }
 }
