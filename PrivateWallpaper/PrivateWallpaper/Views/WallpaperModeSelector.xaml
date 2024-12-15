@@ -20,7 +20,7 @@
 
         <Grid Grid.RowSpan="2" Grid.ColumnSpan="2">
             <!--replace with local video file-->
-            <MediaElement x:Name="media" Source="../Resources/Lantern-Festival-Genshin-Impact.mp4" Stretch="UniformToFill" LoadedBehavior="Manual"></MediaElement>
+            <MediaElement x:Name="media" Stretch="UniformToFill" LoadedBehavior="Manual"></MediaElement>
         </Grid>
 
         <Border BorderThickness="0" BorderBrush="{StaticResource AccentBaseColor}" Margin="20" CornerRadius="15">

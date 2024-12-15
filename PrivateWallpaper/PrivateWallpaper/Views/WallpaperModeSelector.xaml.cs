@@ -110,6 +110,14 @@ namespace PrivateWallpaper.Views
 
         private void BlurWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            var filePath = Environment.CurrentDirectory + "\\Lantern_Festival_Genshin_Impact.mp4";
+
+            if (System.IO.File.Exists(filePath) == false)
+            {
+                System.IO.File.WriteAllBytes(filePath, Properties.Resources.Lantern_Festival_Genshin_Impact);
+            }
+
+            media.Source = new Uri(filePath, UriKind.Absolute);
             media.Play();
             media.MediaEnded += Media_MediaEnded;
         }
